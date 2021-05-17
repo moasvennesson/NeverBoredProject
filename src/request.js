@@ -1,50 +1,38 @@
 
-import React from 'react';
+import userEvent from '@testing-library/user-event';
+import React, {useState, useRef} from 'react';
 
-class Request extends React.Component {
+export default function Request() {
+    const [activities, setState] = useState([])
 
-  
-    constructor(props) {
+    fetch('http://www.boredapi.com/api/activity/')
+    .then(res => res.json())
+    .then(json => {
+        setState({
+            activities: json,
+            isLoaded: true, 
+        })
+    }).catch((err) => {
+        console.log(err);
+    });
+    
 
-        super(props);
-
-        this.state = {
-            items: [],
-            isLoaded: false
-        }
-
-    }
-
-    componentDidMount() {
-
-        fetch('http://www.boredapi.com/api/activity/')
-            .then(res => res.json())
-            .then(json => {
-                this.setState({
-                    items: json,
-                    isLoaded: true, 
-                })
-            }).catch((err) => {
-                console.log(err);
-            });
-
-    }
-
-    render() {
-
-        const { isLoaded, items } = this.state;
-
-        if (!isLoaded)
-            return <div>Loading...</div>;
-
+    function randomActivity() {
         return (
-            <div className="App">
-                {items.activity}
-            </div>
-        );
+            console.log(activities)
+        )
+    } 
+        
+    if (activities.isLoaded = false)
+        return <div>Loading...</div>;
 
-    }
+    return (
+        <div className="container">
+            <section id="buttons">
+                <button type="button" className="btn btn-primary" id="firstbutton" onClick={randomActivity}>Random activity</button>
+            </section>
+        </div>
+    );
 
 }
 
-export default Request;
