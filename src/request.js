@@ -1,6 +1,5 @@
-
-import userEvent from '@testing-library/user-event';
 import React, {useState, useRef} from 'react';
+import Activities from './Activities'
 
 export default function Request() {
     const [activities, setState] = useState([])
@@ -23,8 +22,6 @@ export default function Request() {
         )
     } 
         
-    if (activities.isLoaded = false)
-        return <div>Loading...</div>;
 
     return (
         <div className="container">
