@@ -1,10 +1,12 @@
-import Request from "./request";
+import React from 'react';
+import ActivityHandler from './ActivityHandler'
 
 function App() {
   return (
-    <div>
-      <Request />
-    </div>
+    <>
+      <h1>Never bored</h1>
+      <ActivityHandler />
+    </>
   );
 }
 
