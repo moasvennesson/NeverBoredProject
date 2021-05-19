@@ -17,6 +17,15 @@
     margin-top: 1%;
 }
 
+#firstbutton {
+    margin-top: 1.2%;
+  }
+
 .MuiBox-root {
     margin-bottom: 1px!important;
 }
+
+#ratingform {
+    max-width: 30%;
+}
+

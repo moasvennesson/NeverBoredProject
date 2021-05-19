@@ -45,6 +45,11 @@ export default function Saved_activity(props) {
     console.log(props.id);
     const rating = parseInt(props.rating);
 
+    const checkValueStars = (object, value) => {
+        console.log(object);
+        console.log(value);
+    }
+
     return (
         <li className="list-group-item">
             {props.activity}
@@ -56,6 +61,7 @@ export default function Saved_activity(props) {
                 defaultValue={rating}
                 getLabelText={(value) => customIcons[value].label}
                 IconContainerComponent={IconContainer}
+                onChange={checkValueStars}
                 />
             </Box>
         </li>

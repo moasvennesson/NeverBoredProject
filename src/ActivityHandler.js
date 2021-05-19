@@ -34,6 +34,10 @@ export default function ActivityHandler() {
         Set_new_activities(new_activities.filter((activity) => activity.id !== id));
     }
 
+    function updateItem(id, activity, rating) {
+        // Ska uppdatera en item i listan
+    }
+
     return (
         <div className="container">
              <h1>Never bored</h1>
@@ -58,7 +62,7 @@ export default function ActivityHandler() {
                 </ul>
                 <h3>Saved activities:</h3>
                 <ul className="list-group">
-                    {new_activities.map(activity => <Saved_activity deleteItem={deleteItem} activity={activity.activity} rating={activity.rating} id={activity.id} key={uuidv4()}/>)}
+                    {new_activities.map(activity => <Saved_activity deleteItem={deleteItem} updateItem={updateItem} activity={activity.activity} rating={activity.rating} id={activity.id} key={uuidv4()}/>)}
                 </ul>
             </section>
         </div>
