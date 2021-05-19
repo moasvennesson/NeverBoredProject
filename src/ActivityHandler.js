@@ -24,10 +24,11 @@ export default function ActivityHandler() {
     };
             //console.log(activity);
             console.log(new_activities);
-    function Save_activity(activity) {
-        Set_new_activities([...new_activities, { id: uuidv4(), activity: activity}])
+      function Save_activity(activity, inputRefRating) {
+              console.log(inputRefRating.current.value);
+              Set_new_activities([...new_activities, { id: uuidv4(), activity: activity, rating: inputRefRating.current.value}])
 
-    }
+          }
 
     function deleteItem(id) {
         Set_new_activities(new_activities.filter((activity) => activity.id !== id));
@@ -37,7 +38,7 @@ export default function ActivityHandler() {
         <div className="container">
              <h1>Never bored</h1>
             <section id="buttons">
-                <select ref={CategoryRef} type="text" className="form-control" id="category">
+                <select ref={CategoryRef} type="text" className="form-control">
                     <option value="0">Chose your category here...</option>
                     <option value="">random</option>
                     <option value="education">education</option>
@@ -51,13 +52,13 @@ export default function ActivityHandler() {
                     <option value="busywork">busywork</option>
                 </select>
                 <button className="btn btn-success mt-3" onClick={Get_activity}>Get Activity</button>
-                <h3 style={{paddingTop: "20px"}}>Activity:</h3>
+                <h3 style={{paddingTop: "20px"}}>Activities:</h3>
                 <ul className="list-group">
                     {activity.map(activity => <Activities key={uuidv4()} activity={activity} Save_activity={Save_activity}/> )}
                 </ul>
-                <h4 id="header4">Saved activities:</h4>
+                <h3>Saved activities:</h3>
                 <ul className="list-group">
-                    {new_activities.map(activity => <Saved_activity deleteItem={deleteItem} activity={activity.activity} id={activity.id} key={uuidv4()}/>)}
+                    {new_activities.map(activity => <Saved_activity deleteItem={deleteItem} activity={activity.activity} rating={activity.rating} id={activity.id} key={uuidv4()}/>)}
                 </ul>
             </section>
         </div>

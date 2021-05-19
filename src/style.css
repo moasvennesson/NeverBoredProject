@@ -15,4 +15,8 @@
 
 #header4 {
     margin-top: 1%;
-} 
+}
+
+.MuiBox-root {
+    margin-bottom: 1px!important;
+}
