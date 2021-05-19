@@ -37,7 +37,7 @@ export default function ActivityHandler() {
         <div className="container">
              <h1>Never bored</h1>
             <section id="buttons">
-                <select ref={CategoryRef} type="text" className="form-control">
+                <select ref={CategoryRef} type="text" className="form-control" id="category">
                     <option value="0">Chose your category here...</option>
                     <option value="">random</option>
                     <option value="education">education</option>
@@ -51,11 +51,11 @@ export default function ActivityHandler() {
                     <option value="busywork">busywork</option>
                 </select>
                 <button className="btn btn-success mt-3" onClick={Get_activity}>Get Activity</button>
-                <h3 style={{paddingTop: "20px"}}>Activities:</h3>
+                <h3 style={{paddingTop: "20px"}}>Activity:</h3>
                 <ul className="list-group">
                     {activity.map(activity => <Activities key={uuidv4()} activity={activity} Save_activity={Save_activity}/> )}
                 </ul>
-                <h3>Saved activities:</h3>
+                <h4 id="header4">Saved activities:</h4>
                 <ul className="list-group">
                     {new_activities.map(activity => <Saved_activity deleteItem={deleteItem} activity={activity.activity} id={activity.id} key={uuidv4()}/>)}
                 </ul>

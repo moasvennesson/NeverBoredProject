@@ -6,7 +6,7 @@ export default function Activities(props) {
     return (
         <li className="list-group-item">
             {activity}
-            <button className="btn btn-success mt-3 float-end" onClick={() => {props.Save_activity(props.activity)}}>Save</button>
+            <button className="btn btn-secondary btn-sm float-end" onClick={() => {props.Save_activity(props.activity)}}>Save</button>
         </li>
     )
 }
