@@ -7,6 +7,7 @@ export default function Activities(props) {
     return (
         <li className="list-group-item">
             {activity}
+            <button id="hej" className="btn btn-secondary float-end" onClick={() => {props.Save_activity(props.activity, inputRefRating)}}>Save</button>
             <select ref={inputRefRating} type="text" id="ratingform" className="form-control">
                 <option value="0">Välj betyg här...</option>
                 <option value="1">1</option>
@@ -15,7 +16,6 @@ export default function Activities(props) {
                 <option value="4">4</option>
                 <option value="5">5</option>
             </select>
-            <button id="hej" className="btn btn-secondary float-end" onClick={() => {props.Save_activity(props.activity, inputRefRating)}}>Save</button>
         </li>
     )
 }
