@@ -52,7 +52,7 @@ export default function Saved_activity(props) {
 
     return (
         <li className="list-group-item">
-            {props.activity}
+            {props.activity[0]}. Participants: {props.activity[1]}
             <button className="btn btn-sm btn-danger float-end" onClick={() => {props.deleteItem(props.id)}}>X</button>
             <Box component="fieldset" mb={3} borderColor="transparent">
                 <Typography component="legend"></Typography>

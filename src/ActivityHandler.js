@@ -12,18 +12,23 @@ export default function ActivityHandler() {
     const [activity, Set_activity] = useState([]);
     const [new_activities, Set_new_activities] = useState([]);
     const CategoryRef = useRef();
+    const PeopleRef = useRef();
     // [...activity, { id: uuidv4(), activity: response.data.activity, type: response.data.type }]
 
     function Get_activity(){
         const category = CategoryRef.current.value
-        Axios.get(`http://www.boredapi.com/api/activity?type=${category}`).then((response) => {
+        const people = PeopleRef.current.value
+        Axios.get(`http://www.boredapi.com/api/activity?type=${category}&participants=${people}`).then((response) => {
            // console.log(category);
-            Set_activity([response.data.activity])
+           let myarray = [response.data.activity, response.data.participants]
+            Set_activity(myarray)
+            //console.log(response.data.participants)
             }
         )
+        
     };
-            //console.log(activity);
-            console.log(new_activities);
+        //console.log(activity)
+          //  console.log(new_activities);
       function Save_activity(activity, inputRefRating) {
               console.log(inputRefRating.current.value);
               Set_new_activities([...new_activities, { id: uuidv4(), activity: activity, rating: inputRefRating.current.value}])
@@ -55,10 +60,20 @@ export default function ActivityHandler() {
                     <option value="music">music</option>
                     <option value="busywork">busywork</option>
                 </select>
+                <select ref={PeopleRef} type="text" className="form-control">
+                    <option value="0">How many participants?</option>
+                    <option value="">random</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="8">8</option>
+                </select>
                 <button className="btn btn-success mt-3" onClick={Get_activity}>Get Activity</button>
                 <h3 style={{paddingTop: "20px"}}>Activities:</h3>
                 <ul className="list-group">
-                    {activity.map(activity => <Activities key={uuidv4()} activity={activity} Save_activity={Save_activity}/> )}
+                    <Activities key={uuidv4()} activity={activity} Save_activity={Save_activity} /> 
                 </ul>
                 <h3>Saved activities:</h3>
                 <ul className="list-group">
