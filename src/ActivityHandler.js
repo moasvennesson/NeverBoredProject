@@ -12,6 +12,7 @@ import Saved_activity from './Saved_activity';
 export default function ActivityHandler() {
     const [activity, Set_activity] = useState([]);
     const [new_activities, Set_new_activities] = useState([]);
+    const saved_activities = get_activities_from_local_storage();
     const CategoryRef = useRef();
     const PeopleRef = useRef();
     // [...activity, { id: uuidv4(), activity: response.data.activity, type: response.data.type }]
@@ -21,8 +22,7 @@ export default function ActivityHandler() {
         const people = PeopleRef.current.value
         Axios.get(`http://www.boredapi.com/api/activity?type=${category}&participants=${people}`).then((response) => {
            // console.log(category);
-           let myarray = [response.data.activity, response.data.participants]
-            Set_activity(myarray)
+            Set_activity([response.data.activity, response.data.participants])
             //console.log(response.data.participants)
         })
     };
@@ -91,13 +91,13 @@ export default function ActivityHandler() {
                     <option value="8">8</option>
                 </select>
                 <button className="btn btn-success mt-3" onClick={Get_activity}>Get Activity</button>
-                <h3 style={{paddingTop: "20px"}}>Activities:</h3>
+                <h3 style={{paddingTop: "20px"}}>Activity:</h3>
                 <ul className="list-group">
                     <Activities key={uuidv4()} activity={activity} Save_activity={Save_activity} />
                 </ul>
                 <h3>Saved activities:</h3>
                 <ul className="list-group">
-                    {new_activities.map(activity => <Saved_activity deleteItem={deleteItem} updateItem={updateItem} activity={activity.activity} rating={activity.rating} id={activity.id} key={uuidv4()}/>)}
+                    {saved_activities.map(activity => <Saved_activity deleteItem={deleteItem} updateItem={updateItem} activity={activity.activity} rating={activity.rating} id={activity.id} key={uuidv4()}/>)}
                 </ul>
             </section>
         </div>
