@@ -1,12 +1,11 @@
-import Request from "./request";
+import React from 'react';
+import ActivityHandler from './ActivityHandler'
 
 function App() {
   return (
-    <div className="App">
-      <header className="Border">
-      </header>
-      <Request />
-    </div>
+    <>
+      <ActivityHandler />
+    </>
   );
 }
 
