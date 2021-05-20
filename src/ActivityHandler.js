@@ -43,7 +43,6 @@ export default function ActivityHandler() {
           //  console.log(new_activities);
     function Save_activity(activity, inputRefRating) {
         let new_activity = {id: uuidv4(), activity: activity, rating: inputRefRating.current.value}
-
         let local_data = get_activities_from_local_storage();
         local_data.push(new_activity)
         console.log("Här sparas den nya listan", local_data);
@@ -55,9 +54,20 @@ export default function ActivityHandler() {
 
     function deleteItem(id) {
         let activity_list = get_activities_from_local_storage();
-        var activities = activity_list.filter((activity) => activity.id !== id);
+        let activities = activity_list.filter((activity) => activity.id !== id);
         localStorage.setItem("activities", JSON.stringify(activities));
         Set_new_activities(new_activities.filter((activity) => activity.id !== id));
+    }
+
+    function rating_sort() {
+
+        let sortedRating = saved_activities.sort(function(a, b){
+            return b.rating - a.rating
+          });
+          localStorage.setItem('activities', JSON.stringify(sortedRating));
+          window.location.reload();
+
+          console.log(sortedRating);
     }
 
     function updateItem(id, activity, rating) {
@@ -70,7 +80,7 @@ export default function ActivityHandler() {
             <section id="buttons">
                 <b>Select activity</b>
                 <select ref={CategoryRef} type="text" className="form-control">
-                    <option value="0">Chose your category here...</option>
+                    <option value="">Chose your category here...</option>
                     <option value="">Random</option>
                     <option value="education">Education</option>
                     <option value="recreational">Recreational</option>
@@ -84,7 +94,7 @@ export default function ActivityHandler() {
                 </select>
                 <b>Select participants</b>
                 <select ref={PeopleRef} type="text" className="form-control">
-                    <option value="0">How many participants?</option>
+                    <option value="">How many participants?</option>
                     <option value="">Random</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -102,6 +112,7 @@ export default function ActivityHandler() {
                 <ul className="list-group">
                     {saved_activities.map(activity => <Saved_activity deleteItem={deleteItem} updateItem={updateItem} activity={activity.activity} rating={activity.rating} id={activity.id} key={uuidv4()}/>)}
                 </ul>
+                <button type="button" className="btn btn-primary" onClick={rating_sort}>Sortera efter betyg</button>
             </section>
         </div>
     )
