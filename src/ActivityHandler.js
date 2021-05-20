@@ -65,19 +65,21 @@ export default function ActivityHandler() {
         <div className="container">
              <h1>Never bored</h1>
             <section id="buttons">
+                <b>Select activity</b>
                 <select ref={CategoryRef} type="text" className="form-control">
                     <option value="0">Chose your category here...</option>
                     <option value="">random</option>
-                    <option value="education">education</option>
-                    <option value="recreational">recreational</option>
-                    <option value="social">social</option>
-                    <option value="diy">diy</option>
-                    <option value="charity">charity</option>
-                    <option value="cooking">cooking</option>
-                    <option value="relaxation">relaxation</option>
-                    <option value="music">music</option>
-                    <option value="busywork">busywork</option>
+                    <option value="education">Education</option>
+                    <option value="recreational">Recreational</option>
+                    <option value="social">Social</option>
+                    <option value="diy">Diy</option>
+                    <option value="charity">Charity</option>
+                    <option value="cooking">Cooking</option>
+                    <option value="relaxation">Relaxation</option>
+                    <option value="music">Music</option>
+                    <option value="busywork">Busywork</option>
                 </select>
+                <b>Select participants</b>
                 <select ref={PeopleRef} type="text" className="form-control">
                     <option value="0">How many participants?</option>
                     <option value="">random</option>
