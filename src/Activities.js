@@ -9,7 +9,7 @@ export default function Activities(props) {
             {activity[0]}
             <button id="hej" className="btn btn-secondary float-end" onClick={() => {props.Save_activity(props.activity, inputRefRating)}}>Save</button>
             <select ref={inputRefRating} type="text" id="ratingform" className="form-control">
-                <option value="0">Välj betyg här...</option>
+                <option value="0">Select grade here...</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>

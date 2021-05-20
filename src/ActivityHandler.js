@@ -54,6 +54,9 @@ export default function ActivityHandler() {
     }
 
     function deleteItem(id) {
+        let activity_list = get_activities_from_local_storage();
+        var activities = activity_list.filter((activity) => activity.id !== id);
+        localStorage.setItem("activities", JSON.stringify(activities));
         Set_new_activities(new_activities.filter((activity) => activity.id !== id));
     }
 
@@ -68,7 +71,7 @@ export default function ActivityHandler() {
                 <b>Select activity</b>
                 <select ref={CategoryRef} type="text" className="form-control">
                     <option value="0">Chose your category here...</option>
-                    <option value="">random</option>
+                    <option value="">Random</option>
                     <option value="education">Education</option>
                     <option value="recreational">Recreational</option>
                     <option value="social">Social</option>
@@ -82,7 +85,7 @@ export default function ActivityHandler() {
                 <b>Select participants</b>
                 <select ref={PeopleRef} type="text" className="form-control">
                     <option value="0">How many participants?</option>
-                    <option value="">random</option>
+                    <option value="">Random</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
