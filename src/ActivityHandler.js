@@ -1,9 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Axios from 'axios';
 import Activities from './Activities';
 import './style.css';
 import Saved_activity from './Saved_activity';
+
 
 //"http://www.boredapi.com/api/activity/"
 
@@ -23,17 +24,34 @@ export default function ActivityHandler() {
            let myarray = [response.data.activity, response.data.participants]
             Set_activity(myarray)
             //console.log(response.data.participants)
-            }
-        )
-        
+        })
     };
+
+    function get_activities_from_local_storage() {
+        console.log("Local_storage körs");
+        let local_data = localStorage.getItem("activities");
+        console.log(local_data);
+
+        if(local_data) {
+            return JSON.parse(local_data)
+
+        } else {
+            return [];
+        }
+    }
         //console.log(activity)
           //  console.log(new_activities);
-      function Save_activity(activity, inputRefRating) {
-              console.log(inputRefRating.current.value);
-              Set_new_activities([...new_activities, { id: uuidv4(), activity: activity, rating: inputRefRating.current.value}])
+    function Save_activity(activity, inputRefRating) {
+        let new_activity = {id: uuidv4(), activity: activity, rating: inputRefRating.current.value}
 
-          }
+        let local_data = get_activities_from_local_storage();
+        local_data.push(new_activity)
+        console.log("Här sparas den nya listan", local_data);
+
+        localStorage.setItem("activities", JSON.stringify(local_data));
+        Set_new_activities(local_data)
+
+    }
 
     function deleteItem(id) {
         Set_new_activities(new_activities.filter((activity) => activity.id !== id));
@@ -73,7 +91,7 @@ export default function ActivityHandler() {
                 <button className="btn btn-success mt-3" onClick={Get_activity}>Get Activity</button>
                 <h3 style={{paddingTop: "20px"}}>Activities:</h3>
                 <ul className="list-group">
-                    <Activities key={uuidv4()} activity={activity} Save_activity={Save_activity} /> 
+                    <Activities key={uuidv4()} activity={activity} Save_activity={Save_activity} />
                 </ul>
                 <h3>Saved activities:</h3>
                 <ul className="list-group">
