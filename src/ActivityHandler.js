@@ -46,7 +46,7 @@ export default function ActivityHandler() {
 
     function test() {
         let x = document.getElementById("toggle_button");
-        if(document.getElementById('items').length >= 1){
+        if(document.getElementsByTagName('li').length >= 1){
             x.style.display = "block";
         }
     }
