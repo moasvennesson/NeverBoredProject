@@ -44,13 +44,6 @@ export default function ActivityHandler() {
         }
     }
 
-    function test() {
-        let x = document.getElementById("toggle_button");
-        if(document.getElementsByTagName('li').length >= 1){
-            x.style.display = "block";
-        }
-    }
-
     function get_activities_from_local_storage() {
         console.log("Local_storage körs");
         let local_data = localStorage.getItem("activities");
@@ -72,8 +65,7 @@ export default function ActivityHandler() {
         console.log("Här sparas den nya listan", local_data);
 
         localStorage.setItem("activities", JSON.stringify(local_data));
-        Set_new_activities(local_data)
-        test();
+        Set_new_activities(local_data);
     }
 
     function deleteItem(id) {
@@ -84,14 +76,11 @@ export default function ActivityHandler() {
     }
 
     function rating_sort() {
-
         let sortedRating = saved_activities.sort(function(a, b){
             return b.rating - a.rating
           });
           localStorage.setItem('activities', JSON.stringify(sortedRating));
           window.location.reload();
-
-          console.log(sortedRating);
     }
 
     function updateItem(id, activity, rating) {
@@ -144,10 +133,13 @@ export default function ActivityHandler() {
                         <Activities key={uuidv4()} activity={activity} Save_activity={Save_activity} />
                     </ul>
                 </div>
-                <ul className="list-group" >
+                <div id="toggle_button">
+                    <h3>Saved activities</h3>
+                    <button type="button" className="btn btn-primary" onClick={rating_sort}>Sort by rating</button>
+                </div>
+                <ul className="list-group" id="activity_list">
                     {saved_activities.map(activity => <Saved_activity deleteItem={deleteItem} updateItem={updateItem} activity={activity.activity} rating={activity.rating} id={activity.id} price={activity.price} key={uuidv4()}/>)}
                 </ul>
-                <button style={{display: "none"}} id="toggle_button" type="button" className="btn btn-primary" onClick={rating_sort}>Sort by rating</button>
             </section>
         </div>
     )

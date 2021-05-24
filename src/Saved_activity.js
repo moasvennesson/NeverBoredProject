@@ -54,8 +54,7 @@ export default function Saved_activity(props) {
     //console.log(props.activity);
     return (
         <>
-            <h3>Saved activities</h3>
-            <li className="list-group-item" id="items">
+            <li className="list-group-item">
                 <font size="+2">{props.activity[0]}</font>
                 <button className="btn btn-sm btn-danger float-end" onClick={() => {props.deleteItem(props.id)}}>X</button>
                 <Box component="fieldset" mb={3} borderColor="transparent">
