@@ -38,12 +38,17 @@ export default function ActivityHandler() {
 
     function Show_activity_from_API() {
         Get_activity();
+
         let x = document.getElementById("toggle_div");
-        if (x.style.display === "none") {
+        if (activity.length > 0 && activity !== "") {
+            console.log(activity);
             x.style.display = "block";
+        } else{
+            alert("We cannot and shall not meet your demands");
+            //window.location.reload();
         }
     }
-
+console.log(activity);
     function get_activities_from_local_storage() {
         console.log("Local_storage körs");
         let local_data = localStorage.getItem("activities");
@@ -66,6 +71,7 @@ export default function ActivityHandler() {
 
         localStorage.setItem("activities", JSON.stringify(local_data));
         Set_new_activities(local_data);
+        window.location.reload();
     }
 
     function deleteItem(id) {
@@ -87,8 +93,7 @@ export default function ActivityHandler() {
         // Ska uppdatera en item i listan
     }
     // {activity.map(activity => <Activities key={uuidv4()} activity={activity} Save_activity={Save_activity} />)}
-    console.log(activity);
-    console.log(saved_activities);
+
     return (
         <div className="container">
              <h1>Never bored</h1>

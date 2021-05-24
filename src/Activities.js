@@ -13,7 +13,7 @@ export default  function Activities(props) {
             <br/>
             <PeopleIcon/> {activity[1]}
             <br/>
-            <AttachMoney/> {activity[2]}
+            <AttachMoney/> {activity[2] * 10}
             <button className="btn btn-secondary float-end" onClick={() => {props.Save_activity(props.activity, inputRefRating)}}>Save</button>
             <select ref={inputRefRating} type="text" id="ratingform" className="form-control">
                 <option value="0">Select rating</option>
