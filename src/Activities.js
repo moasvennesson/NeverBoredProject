@@ -9,7 +9,7 @@ export default  function Activities(props) {
     const activity = props.activity;
     return (
         <li className="list-group-item">
-            <font size="+2">{activity[0]}</font>
+            <p class="fontsizes" style={{fontSize:"25px"}}>{activity[0]}</p>
             <br/>
             <PeopleIcon/> {activity[1]}
             <br/>

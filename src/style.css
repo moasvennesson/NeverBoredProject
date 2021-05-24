@@ -30,3 +30,12 @@
     max-width: 30%;
 }
 
+#saved_h3 {
+    margin-top: 5%;
+}
+
+@media screen and (max-width: 480px){
+    .fontsizes {
+        font-size: 18px!important;
+    }
+  }

@@ -134,7 +134,7 @@ export default function ActivityHandler() {
                     </ul>
                 </div>
                 <div id="toggle_button">
-                    <h3>Saved activities</h3>
+                    <h3 id="saved_h3">Saved activities</h3>
                     <button type="button" className="btn btn-primary" onClick={rating_sort}>Sort by rating</button>
                 </div>
                 <ul className="list-group" id="activity_list">
