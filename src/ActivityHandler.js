@@ -15,17 +15,41 @@ export default function ActivityHandler() {
     const saved_activities = get_activities_from_local_storage();
     const CategoryRef = useRef();
     const PeopleRef = useRef();
+    const PriceRef = useRef();
+
+
+
+
     // [...activity, { id: uuidv4(), activity: response.data.activity, type: response.data.type }]
 
-    function Get_activity(){
+    function Get_activity(value){
         const category = CategoryRef.current.value
         const people = PeopleRef.current.value
-        Axios.get(`http://www.boredapi.com/api/activity?type=${category}&participants=${people}`).then((response) => {
+        const moneyvar = PriceRef.current.value.split(",")
+        const moneyMin = moneyvar[0];
+        const moneyMax = moneyvar[1];
+
+        Axios.get(`http://www.boredapi.com/api/activity?type=${category}&participants=${people}&minprice=${moneyMin}&maxprice=${moneyMax}`).then((response) => {
            // console.log(category);
-            Set_activity([response.data.activity, response.data.participants])
+        Set_activity([response.data.activity, response.data.participants, response.data.price])
             //console.log(response.data.participants)
         })
     };
+
+    function Show_element() {
+        Get_activity();
+        let x = document.getElementById("toggle_div");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        }
+    }
+
+    function test() {
+        let x = document.getElementById("toggle_button");
+        if(document.getElementById('items').length >= 1){
+            x.style.display = "block";
+        }
+    }
 
     function get_activities_from_local_storage() {
         console.log("Local_storage körs");
@@ -49,7 +73,7 @@ export default function ActivityHandler() {
 
         localStorage.setItem("activities", JSON.stringify(local_data));
         Set_new_activities(local_data)
-
+        test();
     }
 
     function deleteItem(id) {
@@ -73,14 +97,16 @@ export default function ActivityHandler() {
     function updateItem(id, activity, rating) {
         // Ska uppdatera en item i listan
     }
-
+    // {activity.map(activity => <Activities key={uuidv4()} activity={activity} Save_activity={Save_activity} />)}
+    console.log(activity);
+    console.log(saved_activities);
     return (
         <div className="container">
              <h1>Never bored</h1>
             <section id="buttons">
                 <b>Select activity</b>
                 <select ref={CategoryRef} type="text" className="form-control">
-                    <option value="">Chose your category here...</option>
+                    <option value="">Select category here...</option>
                     <option value="">Random</option>
                     <option value="education">Education</option>
                     <option value="recreational">Recreational</option>
@@ -94,25 +120,34 @@ export default function ActivityHandler() {
                 </select>
                 <b>Select participants</b>
                 <select ref={PeopleRef} type="text" className="form-control">
-                    <option value="">How many participants?</option>
+                    <option value="">Select number of participants...</option>
                     <option value="">Random</option>
-                    <option value="1">1</option>
+                    <option value="1" >1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
                     <option value="5">5</option>
                     <option value="8">8</option>
                 </select>
-                <button className="btn btn-success mt-3" onClick={Get_activity}>Get Activity</button>
-                <h3 style={{paddingTop: "20px"}}>Activity:</h3>
-                <ul className="list-group">
-                    <Activities key={uuidv4()} activity={activity} Save_activity={Save_activity} />
+                <b>Price range</b>
+                <select ref={PriceRef} type="text" className="form-control" id="div1">
+                    <option value="0,1">Select price range...</option>
+                    <option value='0,1'>Random</option>
+                    <option value='0,0.1' >Low</option>
+                    <option value='0.11,0.5'>Medium</option>
+                    <option value='0.51,1'>High</option>
+                </select>
+                <button className="btn btn-success mt-3" onClick={Show_element}>Get Activity</button>
+                <div style={{display: "none"}} id="toggle_div">
+                    <h3 style={{paddingTop: "20px"}}>Activity</h3>
+                    <ul className="list-group">
+                        <Activities key={uuidv4()} activity={activity} Save_activity={Save_activity} />
+                    </ul>
+                </div>
+                <ul className="list-group" >
+                    {saved_activities.map(activity => <Saved_activity deleteItem={deleteItem} updateItem={updateItem} activity={activity.activity} rating={activity.rating} id={activity.id} price={activity.price} key={uuidv4()}/>)}
                 </ul>
-                <h3>Saved activities:</h3>
-                <ul className="list-group">
-                    {saved_activities.map(activity => <Saved_activity deleteItem={deleteItem} updateItem={updateItem} activity={activity.activity} rating={activity.rating} id={activity.id} key={uuidv4()}/>)}
-                </ul>
-                <button type="button" className="btn btn-primary" onClick={rating_sort}>Sortera efter betyg</button>
+                <button style={{display: "none"}} id="toggle_button" type="button" className="btn btn-primary" onClick={rating_sort}>Sort by rating</button>
             </section>
         </div>
     )

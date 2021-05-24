@@ -8,6 +8,8 @@ import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAltO
 import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import PeopleIcon from '@material-ui/icons/People';
+import AttachMoney from '@material-ui/icons/AttachMoney';
 
 const customIcons = {
   1: {
@@ -49,21 +51,27 @@ export default function Saved_activity(props) {
         console.log(object);
         console.log(value);
     }
-
+    //console.log(props.activity);
     return (
-        <li className="list-group-item">
-            {props.activity[0]}. Participants: {props.activity[1]}
-            <button className="btn btn-sm btn-danger float-end" onClick={() => {props.deleteItem(props.id)}}>X</button>
-            <Box component="fieldset" mb={3} borderColor="transparent">
-                <Typography component="legend"></Typography>
-                <Rating
-                name="customized-icons"
-                defaultValue={rating}
-                getLabelText={(value) => customIcons[value].label}
-                IconContainerComponent={IconContainer}
-                onChange={checkValueStars}
-                />
-            </Box>
-        </li>
+        <>
+            <h3>Saved activities</h3>
+            <li className="list-group-item" id="items">
+                <font size="+2">{props.activity[0]}</font>
+                <button className="btn btn-sm btn-danger float-end" onClick={() => {props.deleteItem(props.id)}}>X</button>
+                <Box component="fieldset" mb={3} borderColor="transparent">
+                    <Typography component="legend"></Typography>
+                    <Rating
+                    name="customized-icons"
+                    defaultValue={rating}
+                    getLabelText={(value) => customIcons[value].label}
+                    IconContainerComponent={IconContainer}
+                    onChange={checkValueStars}
+                    />
+                </Box>
+                <PeopleIcon/> {props.activity[1]}
+                <br/>
+                <AttachMoney/> {props.activity[2]}
+            </li>
+        </>
     )
 }

@@ -1,15 +1,22 @@
 import React, { useRef } from 'react';
+import PeopleIcon from '@material-ui/icons/People';
+import AttachMoney from '@material-ui/icons/AttachMoney';
 
-export default function Activities(props) {
+
+export default  function Activities(props) {
     const inputRefRating = useRef();
-    //console.log(props);
+    console.log(props);
     const activity = props.activity;
     return (
         <li className="list-group-item">
-            {activity[0]}
-            <button id="hej" className="btn btn-secondary float-end" onClick={() => {props.Save_activity(props.activity, inputRefRating)}}>Save</button>
+            <font size="+2">{activity[0]}</font>
+            <br/>
+            <PeopleIcon/> {activity[1]}
+            <br/>
+            <AttachMoney/> {activity[2]}
+            <button className="btn btn-secondary float-end" onClick={() => {props.Save_activity(props.activity, inputRefRating)}}>Save</button>
             <select ref={inputRefRating} type="text" id="ratingform" className="form-control">
-                <option value="0">Select grade here...</option>
+                <option value="0">Select rating</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
