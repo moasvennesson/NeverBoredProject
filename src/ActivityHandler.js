@@ -38,17 +38,18 @@ export default function ActivityHandler() {
 
     function Show_activity_from_API() {
         Get_activity();
-
         let x = document.getElementById("toggle_div");
-        if (activity.length > 0 && activity !== "") {
-            console.log(activity);
+        if (x.style.display === "none") {
             x.style.display = "block";
-        } else{
-            alert("We cannot and shall not meet your demands");
-            //window.location.reload();
         }
     }
-console.log(activity);
+    function check_if_localstorage() {
+        if (localStorage.getItem("activities") === null) {
+            document.getElementById("saved_h3").innerHTML = "No saved activities";
+
+      }
+    }
+
     function get_activities_from_local_storage() {
         console.log("Local_storage körs");
         let local_data = localStorage.getItem("activities");
@@ -71,7 +72,6 @@ console.log(activity);
 
         localStorage.setItem("activities", JSON.stringify(local_data));
         Set_new_activities(local_data);
-        window.location.reload();
     }
 
     function deleteItem(id) {
@@ -93,7 +93,9 @@ console.log(activity);
         // Ska uppdatera en item i listan
     }
     // {activity.map(activity => <Activities key={uuidv4()} activity={activity} Save_activity={Save_activity} />)}
-
+    console.log(activity);
+    console.log(saved_activities);
+    check_if_localstorage()
     return (
         <div className="container">
              <h1>Never bored</h1>
@@ -138,13 +140,8 @@ console.log(activity);
                         <Activities key={uuidv4()} activity={activity} Save_activity={Save_activity} />
                     </ul>
                 </div>
-<<<<<<< HEAD
                 <div id="toggle_button">
                     <h3 id="saved_h3">Saved activities</h3>
-=======
-                <div>
-                    <h3>Saved activities</h3>
->>>>>>> c6afca1fc86e1e5d1d1e587d6ac4523b3de9c5ce
                     <button type="button" className="btn btn-primary" onClick={rating_sort}>Sort by rating</button>
                 </div>
                 <ul className="list-group" id="activity_list">
