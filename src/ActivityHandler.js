@@ -16,11 +16,8 @@ export default function ActivityHandler() {
     const CategoryRef = useRef();
     const PeopleRef = useRef();
     const PriceRef = useRef();
-
-
-
-
     // [...activity, { id: uuidv4(), activity: response.data.activity, type: response.data.type }]
+    check_if_localstorage()
 
     function Get_activity(value){
         const category = CategoryRef.current.value
@@ -36,18 +33,25 @@ export default function ActivityHandler() {
         })
     };
 
-    function Show_activity_from_API() {
+
+    async function Show_activity_from_API() {
         Get_activity();
+        
         let x = document.getElementById("toggle_div");
-        if (x.style.display === "none") {
+        if (activity.length > 0 && activity !== "") {
+            console.log(activity);
             x.style.display = "block";
+        } else{
+            alert("We cannot and shall not meet your demands");
+            //window.location.reload();
         }
     }
     function check_if_localstorage() {
         if (saved_activities.length === 0) {
             document.getElementById("saved_h3").innerHTML = "No saved activities";
-
-      }
+         } else {
+            document.getElementById("saved_h3").innerHTML = "Saved activities";
+        }
     }
 
     function get_activities_from_local_storage() {
@@ -69,10 +73,8 @@ export default function ActivityHandler() {
         let local_data = get_activities_from_local_storage();
         local_data.push(new_activity)
         console.log("Här sparas den nya listan", local_data);
-
         localStorage.setItem("activities", JSON.stringify(local_data));
         Set_new_activities(local_data);
-
 
     }
 
@@ -88,7 +90,7 @@ export default function ActivityHandler() {
             return b.rating - a.rating
           });
           localStorage.setItem('activities', JSON.stringify(sortedRating));
-          window.location.reload();
+          //window.location.reload();
     }
 
     function updateItem(id, activity, rating) {
@@ -97,7 +99,7 @@ export default function ActivityHandler() {
     // {activity.map(activity => <Activities key={uuidv4()} activity={activity} Save_activity={Save_activity} />)}
     console.log(activity);
     console.log(saved_activities);
-    check_if_localstorage()
+
     return (
         <div className="container">
              <h1>Never bored</h1>
@@ -140,7 +142,6 @@ export default function ActivityHandler() {
                     <h3 style={{paddingTop: "20px"}}>Activity</h3>
                     <ul className="list-group">
                         <Activities key={uuidv4()} activity={activity} Save_activity={Save_activity} />
-                        {check_if_localstorage()}
                     </ul>
                 </div>
                 <div id="toggle_button">
