@@ -36,7 +36,7 @@ export default function ActivityHandler() {
         })
     };
 
-    function Show_element() {
+    function Show_activity_from_API() {
         Get_activity();
         let x = document.getElementById("toggle_div");
         if (x.style.display === "none") {
@@ -126,15 +126,20 @@ export default function ActivityHandler() {
                     <option value='0.11,0.5'>Medium</option>
                     <option value='0.51,1'>High</option>
                 </select>
-                <button className="btn btn-success mt-3" onClick={Show_element}>Get Activity</button>
+                <button className="btn btn-success mt-3" onClick={Show_activity_from_API}>Get Activity</button>
                 <div style={{display: "none"}} id="toggle_div">
                     <h3 style={{paddingTop: "20px"}}>Activity</h3>
                     <ul className="list-group">
                         <Activities key={uuidv4()} activity={activity} Save_activity={Save_activity} />
                     </ul>
                 </div>
+<<<<<<< HEAD
                 <div id="toggle_button">
                     <h3 id="saved_h3">Saved activities</h3>
+=======
+                <div>
+                    <h3>Saved activities</h3>
+>>>>>>> c6afca1fc86e1e5d1d1e587d6ac4523b3de9c5ce
                     <button type="button" className="btn btn-primary" onClick={rating_sort}>Sort by rating</button>
                 </div>
                 <ul className="list-group" id="activity_list">
