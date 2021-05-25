@@ -44,7 +44,7 @@ export default function ActivityHandler() {
         }
     }
     function check_if_localstorage() {
-        if (localStorage.getItem("activities") === null) {
+        if (saved_activities.length === 0) {
             document.getElementById("saved_h3").innerHTML = "No saved activities";
 
       }
@@ -72,6 +72,8 @@ export default function ActivityHandler() {
 
         localStorage.setItem("activities", JSON.stringify(local_data));
         Set_new_activities(local_data);
+
+
     }
 
     function deleteItem(id) {
@@ -138,6 +140,7 @@ export default function ActivityHandler() {
                     <h3 style={{paddingTop: "20px"}}>Activity</h3>
                     <ul className="list-group">
                         <Activities key={uuidv4()} activity={activity} Save_activity={Save_activity} />
+                        {check_if_localstorage()}
                     </ul>
                 </div>
                 <div id="toggle_button">
