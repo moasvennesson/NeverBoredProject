@@ -18,10 +18,6 @@ export default function ActivityHandler() {
     const PriceRef = useRef();
 
 
-
-
-    // [...activity, { id: uuidv4(), activity: response.data.activity, type: response.data.type }]
-
     function Get_activity(value){
         const category = CategoryRef.current.value
         const people = PeopleRef.current.value
@@ -29,30 +25,54 @@ export default function ActivityHandler() {
         const moneyMin = moneyvar[0];
         const moneyMax = moneyvar[1];
 
-        Axios.get(`http://www.boredapi.com/api/activity?type=${category}&participants=${people}&minprice=${moneyMin}&maxprice=${moneyMax}`).then((response) => {
-           // console.log(category);
-        Set_activity([response.data.activity, response.data.participants, response.data.price])
-            //console.log(response.data.participants)
+        Axios.get(`http://www.boredapi.com/api/activity?type=${category}&participants=${people}&minprice=${moneyMin}&maxprice=${moneyMax}`)
+        .then((response) => {
+            Set_activity([response.data.activity, response.data.participants, response.data.price, response.data.error])
+            console.log(response.data)
+        })
+        .catch(error => {
+            console.log(error.response.data)
         })
     };
 
-    function Show_activity_from_API() {
-        Get_activity();
-
-        let x = document.getElementById("toggle_div");
-        if (activity.length > 0 && activity !== "") {
+    useEffect(async () => {
+        document.getElementById("toggle_div").style.display = "none";
+        if(activity.length === 0){
             console.log(activity);
+        } else {
+            return Show_activity_from_API();
+        }
+    });
+
+    function Show_activity_from_API() {
+        let x = document.getElementById("toggle_div");
+        if (activity[3] === undefined) {
             x.style.display = "block";
-        } else{
+        }  else {
+            x.style.display = "none";
             alert("We cannot and shall not meet your demands");
-            //window.location.reload();
         }
     }
-console.log(activity);
+
+    useEffect(async () => {
+        document.getElementById("toggle_saved_activities").style.display = "none";
+        return await Promise.all(saved_activities.map(Show_activity_from_localstorage));
+    });
+
+    function Show_activity_from_localstorage() {
+        let x = document.getElementById("toggle_saved_activities");
+
+        if (saved_activities) {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
     function get_activities_from_local_storage() {
         console.log("Local_storage körs");
         let local_data = localStorage.getItem("activities");
-        console.log(local_data);
+        //console.log(new_activities);
 
         if(local_data) {
             return JSON.parse(local_data)
@@ -71,7 +91,6 @@ console.log(activity);
 
         localStorage.setItem("activities", JSON.stringify(local_data));
         Set_new_activities(local_data);
-        window.location.reload();
     }
 
     function deleteItem(id) {
@@ -86,13 +105,13 @@ console.log(activity);
             return b.rating - a.rating
           });
           localStorage.setItem('activities', JSON.stringify(sortedRating));
-          window.location.reload();
+          update_new_activity();
     }
 
-    function updateItem(id, activity, rating) {
+    function update_new_activity(id, activity, rating) {
         // Ska uppdatera en item i listan
+        Set_new_activities(saved_activities);
     }
-    // {activity.map(activity => <Activities key={uuidv4()} activity={activity} Save_activity={Save_activity} />)}
 
     return (
         <div className="container">
@@ -131,24 +150,19 @@ console.log(activity);
                     <option value='0.11,0.5'>Medium</option>
                     <option value='0.51,1'>High</option>
                 </select>
-                <button className="btn btn-success mt-3" onClick={Show_activity_from_API}>Get Activity</button>
+                <button className="btn btn-success mt-3" onClick={Get_activity}>Get Activity</button>
                 <div style={{display: "none"}} id="toggle_div">
                     <h3 style={{paddingTop: "20px"}}>Activity</h3>
                     <ul className="list-group">
                         <Activities key={uuidv4()} activity={activity} Save_activity={Save_activity} />
                     </ul>
                 </div>
-<<<<<<< HEAD
-                <div id="toggle_button">
+                <div id="toggle_saved_activities" style={{display: "none"}}>
                     <h3 id="saved_h3">Saved activities</h3>
-=======
-                <div>
-                    <h3>Saved activities</h3>
->>>>>>> c6afca1fc86e1e5d1d1e587d6ac4523b3de9c5ce
                     <button type="button" className="btn btn-primary" onClick={rating_sort}>Sort by rating</button>
                 </div>
                 <ul className="list-group" id="activity_list">
-                    {saved_activities.map(activity => <Saved_activity deleteItem={deleteItem} updateItem={updateItem} activity={activity.activity} rating={activity.rating} id={activity.id} price={activity.price} key={uuidv4()}/>)}
+                    {saved_activities.map(activity => <Saved_activity deleteItem={deleteItem} activity={activity.activity} rating={activity.rating} id={activity.id} price={activity.price} key={uuidv4()}/>)}
                 </ul>
             </section>
         </div>
