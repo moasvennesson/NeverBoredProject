@@ -56,8 +56,8 @@ const customIcons = {
     console.log(value);
     return (
         <>
-            <li className="list-group-item">
-            <p class="fontsizes" style={{fontSize:"25px"}}>{props.activity[0]} </p>
+            <li className="list-group-item" id="test">
+                <font size="+2">{props.activity[0]}</font>
                 <button className="btn btn-sm btn-danger float-end" onClick={() => {props.deleteItem(props.id)}}>X</button>
                 <Box component="fieldset" mb={3} borderColor="transparent">
                     <Rating
