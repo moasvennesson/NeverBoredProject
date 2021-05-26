@@ -62,14 +62,11 @@ const customIcons = {
             <p class="fontsizes" style={{fontSize:"25px"}}>{props.activity[0]} </p>
                 <button className="btn btn-sm btn-danger float-end" onClick={() => {props.deleteItem(props.id)}}>X</button>
                 <Box component="fieldset" mb={3} borderColor="transparent">
-                    <Rating
+                    <Rating readOnly
                         name="customized-icons"
                         getLabelText={(value) => customIcons[value].label}
                         IconContainerComponent={IconContainer}
                         value={value}
-                        onChange={(event, newValue) => {
-                          setValue(newValue);
-                        }}
                     />
                 </Box>
                 <div className="symbols">
