@@ -1,5 +1,5 @@
 .container {
-    width: 70%;
+    width: 65%;
     padding: 2%;
     margin: auto;
 
@@ -7,6 +7,7 @@
 
 #savebutton {
     margin-left: 1%;
+
 }
 
 #activityAndButton {
@@ -34,8 +35,47 @@
     margin-top: 5%;
 }
 
+#activitycontainer {
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    border: 1px solid #ced4da;
+    padding: 1%;
+
+}
+.symbols, #ratingAndButton {
+    display:inline;
+    
+}
+
+
 @media screen and (max-width: 480px){
+
+    .container {
+        width: 85%;
+    }
     .fontsizes {
         font-size: 18px!important;
     }
+
+    h1 {
+        margin-top: 20px;
+    }
+
+    #ratingAndButton {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
+    #ratingform {
+        max-width: 100%;
+    }
+
+    br {
+        display: none;
+      }
+    
+    #activitycontainer {
+        padding: 3%;
+    }
+    
   }

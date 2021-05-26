@@ -10,6 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import PeopleIcon from '@material-ui/icons/People';
 import AttachMoney from '@material-ui/icons/AttachMoney';
+import './style.css';
+
 
 export default function Saved_activity(props) {
 
@@ -70,9 +72,10 @@ const customIcons = {
                         }}
                     />
                 </Box>
-                <PeopleIcon/> {props.activity[1]}
-                <br/>
-                <AttachMoney/> {props.activity[2]}
+                <div className="symbols">
+                  <p style={{margin:"0",display:"inline",float:"left"}}><AttachMoney/> {props.activity[2]*10}</p>
+                  <p style={{margin:"0",display:"inline", marginLeft:"10px"}}><PeopleIcon/> {props.activity[1]} </p>
+                </div>
             </li>
         </>
     )
