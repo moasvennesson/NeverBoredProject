@@ -47,32 +47,27 @@ const customIcons = {
 
     const rating = parseInt(props.rating);
 
-    const checkValueStars = (object, value) => {
-        setValue(value);
-        console.log(object);
-        console.log(value);
-    }
+
     const [value, setValue] = React.useState(rating);
-    console.log(value);
     return (
         <>
-            <li className="list-group-item">
-            <p class="fontsizes" style={{fontSize:"25px"}}>{props.activity[0]} </p>
+            <li className="list-group-item" id="test">
+                <font size="+2">{props.activity[0]}</font>
                 <button className="btn btn-sm btn-danger float-end" onClick={() => {props.deleteItem(props.id)}}>X</button>
                 <Box component="fieldset" mb={3} borderColor="transparent">
                     <Rating
-                        name="customized-icons"
+                        name={props.id}
                         getLabelText={(value) => customIcons[value].label}
                         IconContainerComponent={IconContainer}
                         value={value}
-                        onChange={(event, newValue) => {
-                          setValue(newValue);
+                        onChange={(event) => {
+                          props.updateItem(props.id, event.target.value, props.activity)
                         }}
                     />
                 </Box>
                 <PeopleIcon/> {props.activity[1]}
                 <br/>
-                <AttachMoney/> {props.activity[2]}
+                <AttachMoney/> {props.activity[2] * 10}
             </li>
         </>
     )

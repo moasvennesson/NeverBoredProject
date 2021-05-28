@@ -72,7 +72,6 @@ export default function ActivityHandler() {
     function get_activities_from_local_storage() {
         console.log("Local_storage körs");
         let local_data = localStorage.getItem("activities");
-        //console.log(new_activities);
 
         if(local_data) {
             return JSON.parse(local_data)
@@ -81,10 +80,23 @@ export default function ActivityHandler() {
             return [];
         }
     }
-        //console.log(activity)
-          //  console.log(new_activities);
+
     function Save_activity(activity, inputRefRating) {
-        let new_activity = {id: uuidv4(), activity: activity, rating: inputRefRating.current.value}
+        let test = {
+            activity: activity[0],
+            participants: activity[1],
+            price: activity[2],
+            error_msg: activity[3],
+            rating: inputRefRating.current.value,
+            id: uuidv4()
+        }
+        console.log(test);
+
+        let new_activity = {
+            activity: activity,
+            rating: inputRefRating.current.value,
+            id: uuidv4()
+        }
         let local_data = get_activities_from_local_storage();
         local_data.push(new_activity)
         console.log("Här sparas den nya listan", local_data);
@@ -105,17 +117,31 @@ export default function ActivityHandler() {
             return b.rating - a.rating
           });
           localStorage.setItem('activities', JSON.stringify(sortedRating));
-          update_new_activity();
+          Set_new_activities(saved_activities);
     }
 
-    function update_new_activity(id, activity, rating) {
-        // Ska uppdatera en item i listan
-        Set_new_activities(saved_activities);
+    function update_new_activity(id, rating, activity) {
+        let activity_new_rating = {
+            activity: activity,
+            rating: rating,
+            id: id
+        }
+        // Removes the old activity from local storage and adds the new list
+        let activities = saved_activities.filter((activity) => activity.id !== id);
+        localStorage.setItem("activities", JSON.stringify(activities));
+
+        // Gets the local storage and pushes the new activity with the updated rating
+        let local_data = get_activities_from_local_storage();
+        local_data.push(activity_new_rating)
+
+        // Updates local storage with the new activity
+        localStorage.setItem("activities", JSON.stringify(local_data));
+        Set_new_activities(local_data);
     }
+
 
     return (
         <div className="container">
-             <h1>Never bored</h1>
             <section id="buttons">
                 <b>Select activity</b>
                 <select ref={CategoryRef} type="text" className="form-control">
@@ -162,7 +188,7 @@ export default function ActivityHandler() {
                     <button type="button" className="btn btn-primary" onClick={rating_sort}>Sort by rating</button>
                 </div>
                 <ul className="list-group" id="activity_list">
-                    {saved_activities.map(activity => <Saved_activity deleteItem={deleteItem} activity={activity.activity} rating={activity.rating} id={activity.id} price={activity.price} key={uuidv4()}/>)}
+                    {saved_activities.map(activity => <Saved_activity updateItem={update_new_activity} deleteItem={deleteItem} activity={activity.activity} rating={activity.rating} id={activity.id} price={activity.price} key={uuidv4()}/>)}
                 </ul>
             </section>
         </div>
