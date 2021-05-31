@@ -151,6 +151,7 @@ export default function ActivityHandler() {
                     <option value='0.51,1'>High</option>
                 </select>
                 <button className="btn btn-success mt-3" onClick={Get_activity}>Get Activity</button>
+                <a class="btn btn-outline-success mt-3" href="http://www.boredapi.com/contributing" target="_blank" style={{marginLeft: "10px"}}>Contribute</a>
                 <div style={{display: "none"}} id="toggle_div">
                     <h3 style={{paddingTop: "20px"}}>Activity</h3>
                     <ul className="list-group">
