@@ -10,8 +10,6 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import PeopleIcon from '@material-ui/icons/People';
 import AttachMoney from '@material-ui/icons/AttachMoney';
-import './style.css';
-
 
 export default function Saved_activity(props) {
 
@@ -49,30 +47,27 @@ const customIcons = {
 
     const rating = parseInt(props.rating);
 
-    const checkValueStars = (object, value) => {
-        setValue(value);
-        console.log(object);
-        console.log(value);
-    }
+
     const [value, setValue] = React.useState(rating);
-    console.log(value);
     return (
         <>
-            <li className="list-group-item">
-            <p class="fontsizes" style={{fontSize:"25px"}}>{props.activity[0]} </p>
+            <li className="list-group-item" id="test">
+                <font size="+2">{props.activity[0]}</font>
                 <button className="btn btn-sm btn-danger float-end" onClick={() => {props.deleteItem(props.id)}}>X</button>
                 <Box component="fieldset" mb={3} borderColor="transparent">
-                    <Rating readOnly
-                        name="customized-icons"
+                    <Rating
+                        name={props.id}
                         getLabelText={(value) => customIcons[value].label}
                         IconContainerComponent={IconContainer}
                         value={value}
+                        onChange={(event) => {
+                          props.updateItem(props.id, event.target.value, props.activity)
+                        }}
                     />
                 </Box>
-                <div className="symbols">
-                  <p style={{margin:"0",display:"inline",float:"left"}}><AttachMoney/> {props.activity[2]*10}</p>
-                  <p style={{margin:"0",display:"inline", marginLeft:"10px"}}><PeopleIcon/> {props.activity[1]} </p>
-                </div>
+                <PeopleIcon/> {props.activity[1]}
+                <br/>
+                <AttachMoney/> {props.activity[2] * 10}
             </li>
         </>
     )
