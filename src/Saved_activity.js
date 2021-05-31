@@ -65,9 +65,10 @@ const customIcons = {
                         }}
                     />
                 </Box>
-                <PeopleIcon/> {props.activity[1]}
-                <br/>
-                <AttachMoney/> {props.activity[2] * 10}
+                <div className="symbols">
+                  <p style={{margin:"0",display:"inline",float:"left"}}><AttachMoney/> {props.activity[2]*10}</p>
+                  <p style={{margin:"0",display:"inline", marginLeft:"10px"}}><PeopleIcon/> {props.activity[1]} </p>
+                </div>
             </li>
         </>
     )
