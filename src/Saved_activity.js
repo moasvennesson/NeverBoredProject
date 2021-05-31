@@ -8,62 +8,72 @@ import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAltO
 import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import PeopleIcon from '@material-ui/icons/People';
+import AttachMoney from '@material-ui/icons/AttachMoney';
+import './style.css';
 
-const customIcons = {
-  1: {
-    icon: <SentimentVeryDissatisfiedIcon />,
-    label: 'Very Dissatisfied',
-  },
-  2: {
-    icon: <SentimentDissatisfiedIcon />,
-    label: 'Dissatisfied',
-  },
-  3: {
-    icon: <SentimentSatisfiedIcon />,
-    label: 'Neutral',
-  },
-  4: {
-    icon: <SentimentSatisfiedAltIcon />,
-    label: 'Satisfied',
-  },
-  5: {
-    icon: <SentimentVerySatisfiedIcon />,
-    label: 'Very Satisfied',
-  },
-};
-
-function IconContainer(props) {
-  const { value, ...other } = props;
-  return <span {...other}>{customIcons[value].icon}</span>;
-}
-
-IconContainer.propTypes = {
-  value: PropTypes.number.isRequired,
-};
 
 export default function Saved_activity(props) {
-    console.log(props.id);
+
+const customIcons = {
+    1: {
+      icon: <SentimentVeryDissatisfiedIcon />,
+      label: 'Very Dissatisfied',
+    },
+    2: {
+      icon: <SentimentDissatisfiedIcon />,
+      label: 'Dissatisfied',
+    },
+    3: {
+      icon: <SentimentSatisfiedIcon />,
+      label: 'Neutral',
+    },
+    4: {
+      icon: <SentimentSatisfiedAltIcon />,
+      label: 'Satisfied',
+    },
+    5: {
+      icon: <SentimentVerySatisfiedIcon />,
+      label: 'Very Satisfied',
+    },
+  };
+
+    function IconContainer(props) {
+    const { value, ...other } = props;
+    return <span {...other}>{customIcons[value].icon}</span>;
+    }
+
+    IconContainer.propTypes = {
+    value: PropTypes.number.isRequired,
+    };
+
     const rating = parseInt(props.rating);
 
     const checkValueStars = (object, value) => {
+        setValue(value);
         console.log(object);
         console.log(value);
     }
-
+    const [value, setValue] = React.useState(rating);
+    console.log(value);
     return (
-        <li className="list-group-item">
-            {props.activity[0]}. Participants: {props.activity[1]}
-            <button className="btn btn-sm btn-danger float-end" onClick={() => {props.deleteItem(props.id)}}>X</button>
-            <Box component="fieldset" mb={3} borderColor="transparent">
-                <Typography component="legend"></Typography>
-                <Rating
-                name="customized-icons"
-                defaultValue={rating}
-                getLabelText={(value) => customIcons[value].label}
-                IconContainerComponent={IconContainer}
-                onChange={checkValueStars}
-                />
-            </Box>
-        </li>
+        <>
+            <li className="list-group-item">
+            <p class="fontsizes" style={{fontSize:"25px"}}>{props.activity[0]} </p>
+                <button className="btn btn-sm btn-danger float-end" onClick={() => {props.deleteItem(props.id)}}>X</button>
+                <Box component="fieldset" mb={3} borderColor="transparent">
+                    <Rating readOnly
+                        name="customized-icons"
+                        getLabelText={(value) => customIcons[value].label}
+                        IconContainerComponent={IconContainer}
+                        value={value}
+                    />
+                </Box>
+                <div className="symbols">
+                  <p style={{margin:"0",display:"inline",float:"left"}}><AttachMoney/> {props.activity[2]*10}</p>
+                  <p style={{margin:"0",display:"inline", marginLeft:"10px"}}><PeopleIcon/> {props.activity[1]} </p>
+                </div>
+            </li>
+        </>
     )
 }
