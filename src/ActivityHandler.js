@@ -106,8 +106,7 @@ export default function ActivityHandler() {
     }
 
     function deleteItem(id) {
-        let activity_list = get_activities_from_local_storage();
-        let activities = activity_list.filter((activity) => activity.id !== id);
+        let activities = saved_activities.filter((activity) => activity.id !== id);
         localStorage.setItem("activities", JSON.stringify(activities));
         Set_new_activities(new_activities.filter((activity) => activity.id !== id));
     }
@@ -117,6 +116,16 @@ export default function ActivityHandler() {
             return b.rating - a.rating
           });
           localStorage.setItem('activities', JSON.stringify(sortedRating));
+          Set_new_activities(saved_activities);
+    }
+
+    function alphabetic_sort() {
+        let sortedAlphabetic = saved_activities.sort(function(a, b){
+            if (a.activity[0] < b.activity[0]) return -1;
+            if (a.activity[0] > b.activity[0]) return 1;
+            return 0;
+        });
+        localStorage.setItem('activities', JSON.stringify(sortedAlphabetic));
           Set_new_activities(saved_activities);
     }
 
@@ -186,6 +195,7 @@ export default function ActivityHandler() {
                 <div id="toggle_saved_activities" style={{display: "none"}}>
                     <h3 id="saved_h3">Saved activities</h3>
                     <button type="button" className="btn btn-primary" onClick={rating_sort}>Sort by rating</button>
+                    <button type="button" className="btn btn-primary" onClick={alphabetic_sort}>Alphabetic sort</button>
                 </div>
                 <ul className="list-group" id="activity_list">
                     {saved_activities.map(activity => <Saved_activity updateItem={update_new_activity} deleteItem={deleteItem} activity={activity.activity} rating={activity.rating} id={activity.id} price={activity.price} key={uuidv4()}/>)}
