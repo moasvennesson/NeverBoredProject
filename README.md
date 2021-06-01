@@ -61,7 +61,16 @@ Instead, it will copy all the configuration files and the transitive dependencie
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
 ## Why react?
+This project is based on the front-end Javascript library; React. This is one of the biggest libraries on the market, and allows creators to build quality user interfaces. 
 
+### Educational
+The project members already had a ground knowledge of React, and wanted to explore the React community and further develope their knowledges. While on the labor market, React is a very attractive skill-set to acquire, and might land you the tech job of your dreams. 
+
+### Easy to learn
+Beacause React is a well known and established library there is a good amount of helpful information, for when developing a new website or application. The React community is big, and if you have a problem it is likely that someone else had the same problem - and fixed it!
+
+### Developer-friendly
+Even for beginner developers React has been easy to learn, and much has been self explanatory. React makes it easy for developers to implement other developers published code, including API such as Material UI.
 
 ## Learn More
 
