@@ -7,20 +7,20 @@ Make sure you have npm or yarn installed.
 
 ### Axios
 This project is based on the API http://www.boredapi.com/ , to fetch this we are using Axios. You need to install the following:
-#### `npm install axios`
+#### `npm (or yarn) install axios`
 
 ### uuid
 To be able to give everything an unique key or id the project is using uuidv4. Install the following:
-#### `npm install uuidv4`
+#### `npm (or yarn) install uuidv4`
 
 ### @material-ui
 This project includes an API for the rating and the icons. For this you need to install the following:
 
-#### `npm install @material-ui/core`
+#### `npm (or yarn) install @material-ui/core`
 
-#### `npm install @material-ui/lab`
+#### `npm (or yarn) install @material-ui/lab`
 
-#### `npm install @material-ui/icons`
+#### `npm (or yarn) install @material-ui/icons`
 
 
 ## Available Scripts
