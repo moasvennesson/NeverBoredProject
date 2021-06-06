@@ -6,11 +6,10 @@ import './style.css';
 
 export default  function Activities(props) {
     const inputRefRating = useRef();
-    console.log(props);
     const activity = props.activity;
     return (
         <>
-        <div id="activitycontainer"> 
+        <div id="activitycontainer">
             <p class="fontsizes" style={{fontSize:"25px"}}>{activity[0]}</p>
             <div id="flex">
                 <div className="symbols">
@@ -30,7 +29,7 @@ export default  function Activities(props) {
                 </div>
             </div>
         </div>
-        
+
     </>
     )
 }

@@ -6,7 +6,7 @@ import './style.css';
 import Saved_activity from './Saved_activity';
 
 
-//"http://www.boredapi.com/api/activity/"
+// API: "http://www.boredapi.com/api/activity/"
 
 
 export default function ActivityHandler() {
@@ -28,10 +28,6 @@ export default function ActivityHandler() {
         Axios.get(`http://www.boredapi.com/api/activity?type=${category}&participants=${people}&minprice=${moneyMin}&maxprice=${moneyMax}`)
         .then((response) => {
             Set_activity([response.data.activity, response.data.participants, response.data.price, response.data.error])
-            console.log(response.data)
-        })
-        .catch(error => {
-            console.log(error.response.data)
         })
     };
 
@@ -82,16 +78,6 @@ export default function ActivityHandler() {
     }
 
     function Save_activity(activity, inputRefRating) {
-        let test = {
-            activity: activity[0],
-            participants: activity[1],
-            price: activity[2],
-            error_msg: activity[3],
-            rating: inputRefRating.current.value,
-            id: uuidv4()
-        }
-        console.log(test);
-
         let new_activity = {
             activity: activity,
             rating: inputRefRating.current.value,
@@ -99,7 +85,6 @@ export default function ActivityHandler() {
         }
         let local_data = get_activities_from_local_storage();
         local_data.push(new_activity)
-        console.log("Här sparas den nya listan", local_data);
 
         localStorage.setItem("activities", JSON.stringify(local_data));
         Set_new_activities(local_data);
